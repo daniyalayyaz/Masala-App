@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "654785729085",
+    "project_id": "ordertaking-dd576",
+    "storage_bucket": "ordertaking-dd576.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654785729085:android:e198b13213394c3684d054",
+        "android_client_info": {
+          "package_name": "com.example.ordertakingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654785729085-h2ek541faucul0drih3ujhl2kl24hr0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEuWEZkG9JoIRyYdW0opM1UziAfC9B6EU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654785729085-h2ek541faucul0drih3ujhl2kl24hr0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
