@@ -142,8 +142,8 @@ class SelectCard extends StatelessWidget {
         if (choice.title == 'Logout') {
           _logout();
 
-          // Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => GarageLogin()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => Login()));
           // Navigator.pushReplacement(context,
           //     MaterialPageRoute(builder: (context) => ManageCitation()));
         }
