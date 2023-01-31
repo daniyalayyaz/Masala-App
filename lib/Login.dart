@@ -213,46 +213,46 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Forgot the password?',
-                            style: TextStyle(
-                                color: Color(0xfff29F05),
-                                fontWeight: FontWeight.w600),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Dont have an account?',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Signup(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(
-                                    color: Color(0xfff29F05),
-                                    fontWeight: FontWeight.w600),
-                              ))
-                        ],
-                      )),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Center(
+                  //     child: TextButton(
+                  //         onPressed: () {},
+                  //         child: Text(
+                  //           'Forgot the password?',
+                  //           style: TextStyle(
+                  //               color: Color(0xfff29F05),
+                  //               fontWeight: FontWeight.w600),
+                  //         )),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         horizontal: 8.0, vertical: 10),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Text(
+                  //           'Dont have an account?',
+                  //           style: TextStyle(color: Colors.white),
+                  //         ),
+                  //         TextButton(
+                  //             onPressed: () {
+                  //               Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                   builder: (context) => Signup(),
+                  //                 ),
+                  //               );
+                  //             },
+                  //             child: Text(
+                  //               'Sign up',
+                  //               style: TextStyle(
+                  //                   color: Color(0xfff29F05),
+                  //                   fontWeight: FontWeight.w600),
+                  //             ))
+                  //       ],
+                  //     )),
                 ],
               ),
             )),

@@ -50,11 +50,12 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        foregroundColor: Colors.white,
+        backgroundColor: Color(0xfff29F05),
+        title: const Text(
+          "Create Shops",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
       body: Form(
         child: Container(
@@ -72,11 +73,11 @@ class _SignupState extends State<Signup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 8.0, right: 8.0, bottom: 20, top: 100),
+                        left: 8.0, right: 8.0, bottom: 20, top: 50),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 1.2,
                       child: Text(
-                        'Sign up to your Account',
+                        'Fill the details!',
                         style: TextStyle(
                             fontSize: 36,
                             color: Colors.white,
@@ -264,7 +265,7 @@ class _SignupState extends State<Signup> {
                       height: 50,
                       child: Container(
                         child: ElevatedButton(
-                          child: Text('Sign up',
+                          child: Text('Create',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:ordertakingapp/All-Orders.dart';
 import 'package:ordertakingapp/Area/Area.dart';
 import 'package:ordertakingapp/Login.dart';
 import 'package:ordertakingapp/Model/Area.dart';
+import 'package:ordertakingapp/Signup.dart';
+import 'package:ordertakingapp/shop/OrderShops.dart';
 
 class OrderDashboard extends StatefulWidget {
   @override
@@ -107,8 +110,8 @@ class Choice {
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: 'All Area', icon: FontAwesomeIcons.user),
-  const Choice(title: 'All Order', icon: FontAwesomeIcons.cartPlus),
+  const Choice(title: 'Create Shops', icon: FontAwesomeIcons.shopify),
+  const Choice(title: 'All Orders', icon: FontAwesomeIcons.list),
   const Choice(title: 'Reports', icon: FontAwesomeIcons.print),
   const Choice(title: 'Credit', icon: Icons.credit_card),
   const Choice(title: 'Logout', icon: Icons.logout),
@@ -123,13 +126,13 @@ class SelectCard extends StatelessWidget {
     return InkWell(
       splashColor: Colors.red,
       onTap: () {
-        if (choice.title == 'All Area') {
+        if (choice.title == 'Create Shops') {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const Areas()));
+              context, MaterialPageRoute(builder: (context) => Signup()));
         }
         if (choice.title == 'All Orders') {
-          // Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => GaragList()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => OrderShops()));
         }
         if (choice.title == 'Reports') {
           // Navigator.pushReplacement(
