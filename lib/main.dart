@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         title: 'Masala App',
         theme: ThemeData(fontFamily: 'Urbanist', primarySwatch: Colors.amber),
         builder: EasyLoading.init(),
-        home: OrderDashboard(),
+        home: Login(),
       ),
     );
   }

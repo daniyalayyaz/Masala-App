@@ -1,15 +1,22 @@
+// ignore: file_names
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ordertakingapp/Model/Area.dart';
 import 'package:ordertakingapp/Model/shop.dart';
+import 'package:geocoding/geocoding.dart' as goc;
 import 'package:ordertakingapp/Product/Product.dart';
+
 import 'package:ordertakingapp/Provider/CartProvider.dart';
 import 'package:ordertakingapp/Provider/ProductProvider.dart';
 import 'package:ordertakingapp/Service/Database.dart';
 import 'package:ordertakingapp/ServiceAdmin/orderService.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// import 'package:geocoding/geocoding.dart';
 
 DatabaseService db = new DatabaseService();
 
@@ -22,11 +29,20 @@ class Shops extends StatefulWidget {
 }
 
 class _ShopsState extends State<Shops> {
+  late double lat;
+  late double longitude;
+  double get latitude => lat;
+
+  late int getc;
+  late Position currentLocation;
   TextEditingController amount = TextEditingController();
   TextEditingController _searchController = TextEditingController();
   late Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
+  String? _currentAddress;
+  Position? _currentPosition;
+  _getCurrentPosition() async {}
 
   @override
   void dispose() {
@@ -35,9 +51,39 @@ class _ShopsState extends State<Shops> {
     super.dispose();
   }
 
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+    return true;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     resultsLoaded = getUsersPastTripsStreamSnapshots();
   }
 
@@ -64,6 +110,27 @@ class _ShopsState extends State<Shops> {
     });
   }
 
+  void navigateTo(double lat, double lng) async {
+    launchURL(lat, lng);
+  }
+
+  launchURL(double lat, double lng) async {
+    double homeLat = lat;
+    double homeLng = lng;
+
+    final String googleMapslocationUrl =
+        "https://www.google.com/maps/search/?api=1&query=${homeLat},${homeLng}";
+
+    final String encodedURl = Uri.encodeFull(googleMapslocationUrl);
+
+    if (await canLaunch(encodedURl)) {
+      await launch(encodedURl);
+    } else {
+      print('Could not launch $encodedURl');
+      throw 'Could not launch $encodedURl';
+    }
+  }
+
   getUsersPastTripsStreamSnapshots() async {
     var data = await db.shop.where('AreaName', isEqualTo: widget.name).get();
 
@@ -75,14 +142,39 @@ class _ShopsState extends State<Shops> {
   }
 
   var searchKey = "";
+  // getlocation() async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  // }
+  Future<Position> locationget() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position);
+    return position;
+  }
 
   @override
   void initState() {
+    // currentlocation();
     // TODO: implement initState
     super.initState();
-
+    // getlocation();
     _searchController.addListener(_onSearchChanged);
   }
+
+  // Future<void> _getAddressFromLatLng(Position position) async {
+  //   await placemarkFromCoordinates(
+  //           _currentPosition!.latitude, _currentPosition!.longitude)
+  //       .then((List<Placemark> placemarks) {
+  //     Placemark place = placemarks[0];
+  //     setState(() {
+  //       _currentAddress =
+  //           '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+  //     });
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +277,10 @@ class _ShopsState extends State<Shops> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        navigateTo(_resultsList[index]['lat'],
+                                            _resultsList[index]['lng']);
+                                      },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
@@ -253,7 +348,9 @@ class _ShopsState extends State<Shops> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        currentlocation(_resultsList[index].id);
+                                      },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
@@ -432,5 +529,31 @@ class _ShopsState extends State<Shops> {
             ),
           );
         });
+  }
+
+  Future<Position> getCurrentlocation() {
+    return Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  currentlocation(String id) async {
+    getCurrentlocation();
+    var postiondate = await GeolocatorPlatform.instance.getCurrentPosition();
+    final cord = goc.placemarkFromCoordinates(
+        postiondate.latitude, postiondate.longitude);
+    // print("dd $cord");
+    // var address = await goc.local.findAddressesFromCoordinates(cord);
+    // String mianaddrerss = address.first.addressLine;
+    // lat = postiondate.latitude;
+    // lng = postiondate.longitude;
+    // finalAddress = mianaddrerss;
+    print(postiondate.latitude);
+    print(postiondate.longitude);
+    setState(() {
+      lat = postiondate.latitude;
+      longitude = postiondate.longitude;
+    });
+    db.shop.doc(id).update({"lat": lat, "lng": longitude});
+    // notifyListeners();
   }
 }

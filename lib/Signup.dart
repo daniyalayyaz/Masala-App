@@ -2,12 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ordertakingapp/Area/Area.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 class Signup extends StatefulWidget {
   static final routename = 'Signup';
   bool _isObscure = true;
   bool isChecked = false;
   bool _isButtonDisabled = true;
+  TextEditingController area = new TextEditingController();
+
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   @override
@@ -15,6 +18,24 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final List<Map<String, dynamic>> areaslist = [
+    {
+      'value': 'Johar Town',
+      'label': 'Johar Town',
+    },
+    {
+      'value': 'Model Town',
+      'label': 'Model Town',
+    },
+    {
+      'value': 'Garden Town',
+      'label': 'Garden Town',
+    },
+    {
+      'value': 'Faisal Town',
+      'label': 'Faisal Town',
+    }
+  ];
   CheckDisableButton() {
     print(widget.email.text);
     if (widget.email.text.isNotEmpty && widget.password.text.isNotEmpty) {
@@ -67,11 +88,13 @@ class _SignupState extends State<Signup> {
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 1.2,
-                      child: TextFormField(
+                      child: SelectFormField(
+                        type: SelectFormFieldType.dropdown,
+                        items: areaslist,
                         style: TextStyle(
                             color: Color(0xff212121),
                             fontWeight: FontWeight.w600),
-                        controller: widget.email,
+                        controller: widget.area,
                         onChanged: CheckDisableButton(),
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -79,6 +102,9 @@ class _SignupState extends State<Signup> {
                                 color: Color(0xfff29F05), width: 2.0),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          suffixIcon: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(Icons.arrow_drop_down)),
                           prefixIcon: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Icon(Icons.location_pin)),
