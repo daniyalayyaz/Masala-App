@@ -118,7 +118,7 @@ class _AddProdcutState extends State<AddProdcut> {
                             return "Enter Qty";
                           }
                           setState(() {
-                            productdes = value!;
+                            productdes = value;
                           });
                           return null;
                         },
@@ -331,7 +331,7 @@ class _AddProdcutState extends State<AddProdcut> {
                             return "Enter password ";
                           }
                           setState(() {
-                            productdes = value!;
+                            productdes = value;
                           });
                           return null;
                         },
