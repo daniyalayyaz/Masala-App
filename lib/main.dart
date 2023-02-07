@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'package:ordertakingapp/Area/Area.dart';
-import 'package:ordertakingapp/Dasboard/OrderDashboard.dart';
 import 'package:ordertakingapp/Login.dart';
-import 'package:ordertakingapp/Model/Area.dart';
-import 'package:ordertakingapp/Model/shop.dart';
+
 import 'package:ordertakingapp/Provider/CartProvider.dart';
-import 'package:ordertakingapp/shop/Shops.dart';
+
 import 'package:provider/provider.dart';
 
-import 'ProductManager/Addproduct.dart';
 import 'Provider/ProductProvider.dart';
 
 // void main() {

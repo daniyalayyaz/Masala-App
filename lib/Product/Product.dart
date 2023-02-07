@@ -46,7 +46,7 @@ class _ProductState extends State<Product> {
     final _carprovider = Provider.of<CartProvider>(context, listen: true);
 
     Widget addbutton(document) {
-      return FlatButton(
+      return ElevatedButton(
         onPressed: () {
           // Navigator.push(
           //             context,
@@ -56,7 +56,6 @@ class _ProductState extends State<Product> {
           //                     )));
         },
         child: Text("View Details"),
-        color: Colors.blue,
       );
     }
 

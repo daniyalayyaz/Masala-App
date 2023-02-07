@@ -51,7 +51,7 @@ class _AddProdcutState extends State<AddProdcut> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<Productprovider>(context,listen: false);
+    var provider = Provider.of<Productprovider>(context, listen: false);
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -244,42 +244,36 @@ class _AddProdcutState extends State<AddProdcut> {
 
                       Divider(),
 
-                      FlatButton.icon(
+                      ElevatedButton.icon(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               EasyLoading.show(status: 'loading...');
                               EasyLoading.dismiss();
-                        
-                                EasyLoading.show(status: "Processing Save");
-                             
-                                 
-                                    provider
-                                        .saveprodcut(
-                                      prodcutname,
-                                      productdes,
-                                      price,
-                                    )
-                                        .then((value) {
-                                      if (value) {
-                                        EasyLoading.showSuccess(
-                                            "Product Save Successfully");
 
-                                        formKey.currentState!.reset();
-                                        setState(() {
-                                          _load = false;
-                                        });
-                                      } else {
-                                        EasyLoading.showError("Fail");
-                                      }
-                                    });
-                                  } else {
-                                    provider.alertDialog(
-                                        context,
-                                        "Image  upload",
-                                        "Fail to upload image");
-                                  
+                              EasyLoading.show(status: "Processing Save");
 
-                              
+                              provider
+                                  .saveprodcut(
+                                prodcutname,
+                                productdes,
+                                price,
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  EasyLoading.showSuccess(
+                                      "Product Save Successfully");
+
+                                  formKey.currentState!.reset();
+                                  setState(() {
+                                    _load = false;
+                                  });
+                                } else {
+                                  EasyLoading.showError("Fail");
+                                }
+                              });
+                            } else {
+                              provider.alertDialog(context, "Image  upload",
+                                  "Fail to upload image");
                             }
                           },
                           icon: Icon(Icons.save),
@@ -372,7 +366,7 @@ class _AddProdcutState extends State<AddProdcut> {
 
                       Divider(),
 
-                      FlatButton.icon(
+                      ElevatedButton.icon(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               EasyLoading.show(status: 'loading...');
@@ -457,7 +451,7 @@ class _AddProdcutState extends State<AddProdcut> {
 
                       Divider(),
 
-                      FlatButton.icon(
+                      ElevatedButton.icon(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               EasyLoading.show(status: 'loading...');
@@ -562,7 +556,6 @@ class _AddProdcutState extends State<AddProdcut> {
                                           },
                                           items: snapshot.data!.docs
                                               .map((DocumentSnapshot document) {
-                                           
                                             return new DropdownMenuItem(
                                                 value: document["title"],
                                                 child: new Container(
@@ -609,7 +602,7 @@ class _AddProdcutState extends State<AddProdcut> {
 
                       Divider(),
 
-                      FlatButton.icon(
+                      ElevatedButton.icon(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               // EasyLoading.show(status: 'loading...');

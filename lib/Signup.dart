@@ -1,18 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ordertakingapp/Area/Area.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 class Signup extends StatefulWidget {
-  static final routename = 'Signup';
+  static const routename = 'Signup';
   bool _isObscure = true;
   bool isChecked = false;
   bool _isButtonDisabled = true;
-  TextEditingController area = new TextEditingController();
+  TextEditingController area = TextEditingController();
 
-  TextEditingController email = new TextEditingController();
-  TextEditingController password = new TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   State<Signup> createState() => _SignupState();
 }
@@ -65,7 +63,7 @@ class _SignupState extends State<Signup> {
                 image: DecorationImage(
               image: AssetImage('assets/images/Background.jpg'),
               fit: BoxFit.cover,
-              colorFilter: new ColorFilter.mode(
+              colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.8), BlendMode.dstATop),
             )),
             child: SingleChildScrollView(
